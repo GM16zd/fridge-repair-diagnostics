@@ -1,0 +1,64 @@
+how to test defrost thermostat : 
+1 Samsung ones isn't like the rest they are closed in cold and room temperature (he didn't find the issue so may be the thermostat was faulty, but how can it be faulty and the circuit is closed at least the heater works until it excides max temp and the thermostat wont work and the system fails or something)
+
+2- it's open at room temperature and closes at cold -6 degrees (but mine is closed at all times ; I should test it another test where I put it in a warm water and see if it cuts the power off or not if it closes than it's fine and this guide is wrong otherwise it's faulty ) 
+
+_________________________________________________________________________
+
+If all individual physical components pass testing (heater, thermal fuse, NTC sensor, and thermostat/bimetal), but the **Main Control PCB LED flashes 5 times**, the system is experiencing a logical or signal-path fault.
+
+### Understanding the 5-Blink Fault Code
+
+On Samsung Main PCB units, **5 LED blinks** indicates a **Defrost Cycle Timeout / Execution Error**.
+
+The PCB tracks defrost cycles by time and temperature:
+
+* When defrost starts, the PCB expects the NTC sensor resistance to drop as the coil heats up.
+* If the maximum defrost run time (typically **60 to 80 minutes**) elapses without the NTC reaching the termination threshold (~10°C / 50°F), the board cuts power, assumes a defrost failure, and flashes **5 blinks**.
+
+---
+
+### Why the Heater Isn't Turning On (4 Direct Causes)
+
+Even though your heater, fuse, and sensors are electrically sound individually, the current path or drive signal is blocked:
+
+```
+[Microcontroller] ---> [Transistor/Optocoupler] ---> [Defrost Relay Coil] ---> [Closed Contacts] ---> [Heater]
+
+```
+
+#### 1. Failed / Cold-Soldered Defrost Relay on the Main PCB
+
+The line voltage ($220\text{V}$ / $110\text{V}$) must cross a mechanical relay mounted on the Main Control PCB.
+
+* **The Failure:** The relay coil can burn out, or the mechanical contact points inside the relay carbonize and fail to connect even when the board "clicks."
+* **Result:** The microcontroller commands a defrost cycle, but no voltage ever leaves the PCB terminal board down to the freezer harness.
+
+#### 2. Open Circuit in the Wiring Harness or Connectors
+
+Individual components may test fine at their localized plugs, but the signal path to the back panel is broken.
+
+* **The Failure:** A pushed-out pin, corrosion, or a broken wire inside the foam cabinet wall between the Main PCB connector and the freezer back-wall terminal block.
+* **Verification:** Measure voltage directly at the heater plug inside the freezer while forcing a defrost cycle.
+
+#### 3. Board-Level Sensor Signal Drift (A/D Converter Input)
+
+While your multimeter might read the NTC sensor as correct at room temperature, the signal may be corrupted before reaching the board's microcontroller.
+
+* **The Failure:** A degraded filter capacitor or pull-up resistor on the NTC sensing line of the Main PCB can cause the microcontroller to perceive the coil as already warm (e.g., falsely reading $20^\circ\text{C}$).
+* **Result:** The PCB immediately cancels the defrost command before sending power to the relay because it mistakenly believes no ice is present.
+
+#### 4. System "Heater Time-Out" Lockout
+
+Once the Main PCB logs a 5-blink error state, it often **disables the defrost output relay** on subsequent attempts to prevent potential fire hazards until the power logic is completely reset or forced into test mode.
+
+---
+
+### Field Verification Sequence
+
+1. **Test Defrost Voltage Output at PCB:** Locate the defrost output pin on the Main PCB (refer to the schematic printed on the rear cover). Trigger a forced defrost (or power cycle) and measure AC voltage directly across the **Defrost Relay Output Pin** and **Neutral**.
+* *If $0\text{V}$ AC:* The Main PCB relay or relay driver transistor is faulty. The Main PCB must be replaced or repaired.
+* *If Line Voltage ($220\text{V}$ / $110\text{V}$) is present at the PCB, but $0\text{V}$ reaches the heater:* There is an open wire/connector in the internal cabinet harness.
+
+
+2. **Inspect the Defrost Relay Board Traces:** Flip the Main PCB over and check the solder joints under the main black/blue defrost relay for dark rings or charred traces indicating a burnt trace.
