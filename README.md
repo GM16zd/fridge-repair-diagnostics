@@ -1,8 +1,7 @@
 # Fixing a Frost-Free Fridge: From Blink Codes to a Dead 12 V Rail
 
-A student-led diagnostic project on a **Samsung RT32FARADWW** top-mount inverter refrigerator. It covers the refrigeration cycle, the error codes, component-level testing, and the repair, including the fault that no single component test could have found on its own.
+A diagnostic project on a **Samsung RT32FARADWW** top-mount inverter refrigerator. It covers the refrigeration cycle, the error codes, component-level testing, and the repair, including the fault that no single component test could have found on its own.
 
-> **The short version:** every part I tested turned out to be healthy. That was the most useful result of the whole project, because it pushed me to stop suspecting the parts and start suspecting whatever powers them.
 
 ---
 
