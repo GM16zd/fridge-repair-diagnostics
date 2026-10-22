@@ -1,6 +1,6 @@
 # Phase 2: Diagnostic Walkthrough
 
-This is the full story of how my dad and I went from "the fridge is warm" to "there is no 12 V on this board." I've written it in the order things happened, and for each step I've tried to explain **why** we did it, not just what we did.
+This is the full story of how I went from "the fridge is warm" to "there is no 12 V on this board." I've written it in the order things happened, and for each step I've tried to explain **why** we did it, not just what we did.
 
 The guiding principle was simple: **narrow the problem, don't guess at it.** Every step either ruled something out or pointed at something new.
 
