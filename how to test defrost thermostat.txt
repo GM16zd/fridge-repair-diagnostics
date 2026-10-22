@@ -1,5 +1,5 @@
 how to test defrost thermostat : 
-1 Samsung ones isn't like the rest they are closed in cold and room temperature (he didn't find the issue so may be the thermostat was faulty, but how can it be faulty and the circuit is closed at least the heater works until it excides max temp and the thermostat wont work and the system fails or something)
+1 Samsung ones isn't like the rest they are closed in cold and room temperature (I didn't find the issue so may be the thermostat was faulty, but how can it be faulty and the circuit is closed at least the heater works until it excides max temp and the thermostat wont work and the system fails or something)
 
 2- it's open at room temperature and closes at cold -6 degrees (but mine is closed at all times ; I should test it another test where I put it in a warm water and see if it cuts the power off or not if it closes than it's fine and this guide is wrong otherwise it's faulty ) 
 
